@@ -1,0 +1,152 @@
+interface Researcher {
+    void conductResearch();
+}
+
+class Employee {
+    private int employeeId;
+    private String employeeName;
+    private double salary;
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        if (salary >= 0) {
+            this.salary = salary;
+        } else {
+            System.out.println("Invalid salary.");
+        }
+    }
+
+    public void displayDetails() {
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Employee Name: " + employeeName);
+        System.out.println("Salary: " + salary);
+    }
+
+    public double calculateSalary() {
+        return salary;
+    }
+}
+
+class Teacher extends Employee implements Researcher {
+    private String subject;
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void teach() {
+        System.out.println("Teacher teaches " + subject);
+    }
+
+    @Override
+    public void conductResearch() {
+        System.out.println("Teacher conducts research.");
+    }
+
+    @Override
+    public double calculateSalary() {
+        return super.calculateSalary() + 5000;
+    }
+}
+
+class VisitingTeacher extends Teacher {
+    private int hoursWorked;
+
+    public int getHoursWorked() {
+        return hoursWorked;
+    }
+
+    public void setHoursWorked(int hoursWorked) {
+        if (hoursWorked >= 0) {
+            this.hoursWorked = hoursWorked;
+        } else {
+            System.out.println("Invalid working hours.");
+        }
+    }
+
+    @Override
+    public double calculateSalary() {
+        return getHoursWorked() * 800;
+    }
+}
+
+class Admin extends Employee {
+    private String department;
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void manageDepartment() {
+        System.out.println("Managing Department: " + department);
+    }
+}
+
+public class Q20_UniversityEmployeeSystem {
+    public static void main(String[] args) {
+        Teacher t = new Teacher();
+
+        t.setEmployeeId(701);
+        t.setEmployeeName("Dr. Mehta");
+        t.setSalary(50000);
+        t.setSubject("Computer Science");
+
+        System.out.println("----- Teacher Details -----");
+        t.displayDetails();
+        t.teach();
+        t.conductResearch();
+        System.out.println("Calculated Salary: " + t.calculateSalary());
+
+        VisitingTeacher vt = new VisitingTeacher();
+
+        vt.setEmployeeId(702);
+        vt.setEmployeeName("Ms. Rao");
+        vt.setSalary(0);
+        vt.setSubject("Java");
+        vt.setHoursWorked(20);
+
+        System.out.println("\n----- Visiting Teacher Details -----");
+        vt.displayDetails();
+        vt.teach();
+        System.out.println("Calculated Salary: " + vt.calculateSalary());
+
+        Admin a = new Admin();
+
+        a.setEmployeeId(703);
+        a.setEmployeeName("Mr. Singh");
+        a.setSalary(40000);
+        a.setDepartment("Administration");
+
+        System.out.println("\n----- Admin Details -----");
+        a.displayDetails();
+        a.manageDepartment();
+        System.out.println("Calculated Salary: " + a.calculateSalary());
+    }
+}
